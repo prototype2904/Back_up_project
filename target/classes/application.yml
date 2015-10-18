@@ -1,2 +1,10 @@
 spring:
-   
+    view:
+      prefix: /WEB-INF/pages/
+      suffix: .jsp
+    datasource: 
+      driverClassName: org.h2.Driver
+      url: jdbc:h2:mem:backup
+      username: sa
+      password: 
+      platform: h2
