@@ -31,4 +31,11 @@ public interface UserService {
 	 * @param user
 	 */
 	void save(User user);
+	
+	/**
+	 * Получить авторизированного пользователя
+	 * 
+	 * @return
+	 */
+	User getCurrentUser();
 }

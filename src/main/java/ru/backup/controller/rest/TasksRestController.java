@@ -12,9 +12,16 @@ import ru.backup.domain.TaskFromServer;
 import ru.backup.domain.user.CurrentUser;
 import ru.backup.service.user.TaskFromServerService;
 
+/**
+ * 
+ * Рест контроллер для обработки запросов по задачам
+ * 
+ * @author Alexeevich Andrew
+ *
+ */
 @RestController
 @RequestMapping("/rest/tasks/")
-public class TaskFromServerGetRestController {
+public class TasksRestController {
 	
 	@Autowired
 	private TaskFromServerService taskFromServerService;
@@ -26,25 +33,25 @@ public class TaskFromServerGetRestController {
 	}
 	
 	/**
-	 * найти все файлы с последней версией для данного пользователя
+	 * Вернуть все файлы с последней версией для данного пользователя
 	 * @param currentUser
 	 * @return
 	 */
-	@RequestMapping(value = "all/{generalId}", method = RequestMethod.GET)
-	public List<TaskFromServer> getAll(@PathVariable Long generalId, CurrentUser currentUser)
+	@RequestMapping(value = "all/", method = RequestMethod.GET)
+	public List<TaskFromServer> getAll()
 	{
-
 		return taskFromServerService.findAll();
 	}
 	
 	/**
-	 * получить все версии данного файла
+	 * Вернуть все версии данного файла
+	 * 
 	 * @param generalId
 	 * @param currentUser
 	 * @return
 	 */
 	@RequestMapping(value = "versions/{generalId}", method = RequestMethod.GET)
-	public List<TaskFromServer> getAllVersions(@PathVariable Long generalId, CurrentUser currentUser)
+	public List<TaskFromServer> getAllVersions(@PathVariable Long generalId)
 	{
 		return null;
 	}

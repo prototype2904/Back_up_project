@@ -38,8 +38,8 @@ public class FileFormServiceImpl implements FileFormService {
 	@Override
 	public void save(FileForm fileForm, byte[] file) throws IOException {
 
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByUsername(auth.getName());
+		//Получить авторизированного пользователя
+		User user = userService.getCurrentUser();
 
 		List<FileForm> fileForms = fileFormRepository.findAllByFilenameAndFormatAndUserOrderByVersionDesc(
 				fileForm.getFilename(), fileForm.getFormat(), user);

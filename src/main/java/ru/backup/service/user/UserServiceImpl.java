@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import ru.backup.domain.user.User;
@@ -28,6 +30,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void save(User user) {
 		userRepository.save(user);
+	}
+
+	@Override
+	public User getCurrentUser() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = findUserByUsername(auth.getName());
+		return user;
 	}
 
 }

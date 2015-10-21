@@ -3,10 +3,12 @@ package ru.backup.service.user;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import ru.backup.domain.TaskFromServer;
 import ru.backup.domain.TaskFromServerRepository;
+import ru.backup.domain.user.Role;
 import ru.backup.domain.user.User;
 
 @Service("taskFromServerService")
@@ -15,18 +17,27 @@ public class TaskFromServerServiceImpl implements TaskFromServerService{
 	@Autowired
 	private TaskFromServerRepository taskFromServerRepository;
 	
+	@Autowired
+	private UserService userService;
+	
 	@Override
 	public List<TaskFromServer> findAll() {
 		
-		return taskFromServerRepository.findAll();
+		User user = userService.getCurrentUser();
+		
+		if(user.getRole() == Role.ADMIN){
+			List<TaskFromServer> findAll = taskFromServerRepository.findAll();		
+			return findAll;
+		}
+		if(user.getRole() == Role.USER){
+			List<TaskFromServer> findAll = taskFromServerRepository.findAllByUser(user);
+			return findAll;
+		}
+		return null;
 	}
 
 	@Override
 	public void save(TaskFromServer taskFromServer) {
-//		List<TaskFromServer> findAllOrderByGeneralIdDesc = taskFromServerRepository.findAllOrderByGeneralIdDesc();
-//		Long newGeneralId = findAllOrderByGeneralIdDesc != null ? findAllOrderByGeneralIdDesc.get(0).getGeneralId() + 1 : 1L;
-	//	taskFromServer.setGeneralId(newGeneralId);
-		taskFromServer.setVersion(1L);
 		taskFromServerRepository.save(taskFromServer);
 	}
 
@@ -35,10 +46,6 @@ public class TaskFromServerServiceImpl implements TaskFromServerService{
 		taskFromServerRepository.delete(id);
 	}
 	
-	public void saveNewVersion(TaskFromServer taskFromServer)
-	{
-	}
-
 	@Override
 	public void edit(TaskFromServer taskFromServer) {
 		taskFromServerRepository.save(taskFromServer);
@@ -51,7 +58,7 @@ public class TaskFromServerServiceImpl implements TaskFromServerService{
 
 	@Override
 	public List<TaskFromServer> findAllByUser(User user) {
-		return null;// taskFromServerRepository.findAllByUser(user);
+		return taskFromServerRepository.findAllByUser(user);
 	}
 
 }

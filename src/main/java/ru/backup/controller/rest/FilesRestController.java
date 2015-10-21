@@ -35,35 +35,30 @@ import ru.backup.service.FileFormService;
  *
  */
 @RestController
-@RequestMapping("/rest/task/")
+@RequestMapping("/rest/files/")
 public class FilesRestController {
-	
+
 	@Autowired
 	private FileFormService fileFormService;
-	
-	
-	@RequestMapping(value = "file/", method = RequestMethod.POST)
-	public String saveFile( @RequestParam("file") byte[] file,
-							@RequestParam("filename") String filename,
-							@RequestParam("format") String format)
-	{
-		if(filename == null)
-		{
+
+	@RequestMapping(value = "upload/", method = RequestMethod.POST)
+	public String uploadFile(@RequestParam("file") byte[] file, @RequestParam("filename") String filename,
+			@RequestParam("format") String format) {
+
+		if (filename == null) {
 			return "filename is null";
 		}
-		if(format == null)
-		{
+		if (format == null) {
 			return "format is null";
 		}
-		if(file == null)
-		{
+		if (file == null) {
 			return "file is null";
 		}
 		try {
 			fileFormService.save(new FileForm(filename, format), file);
 			return "good file";
 		} catch (IOException e) {
-			return "плохой файл\n" + e.getMessage() ;
+			return "плохой файл\n" + e.getMessage();
 		}
 	}
 }

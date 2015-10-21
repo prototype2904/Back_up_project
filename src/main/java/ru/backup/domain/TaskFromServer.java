@@ -28,28 +28,31 @@ public class TaskFromServer implements Serializable{
 	@GeneratedValue
 	private Long id;
 
+	/**
+	 * Пользователь, для которого это задача 
+	 */
 	@ManyToOne
 	@JoinColumn
 	User user;
 	
+	/**
+	 * Имя файла для отправки
+	 */
 	@Column
-	private String filePath;
+	private String filename;
 	
+	/**
+	 * формат файла для отправки
+	 */
 	@Column
-	private Long version;
+	private String format;
 	
+	/**
+	 * директория, в которой располагается файл
+	 */
 	@Column
-	private Long generalId;
-
-
-	public String getFilePaths() {
-		return filePath;
-	}
-
-	public void setFilePaths(String filePath) {
-		this.filePath = filePath;
-	}
-
+	private String dirPath;
+	
 	public Long getId() {
 		return id;
 	}
@@ -66,27 +69,31 @@ public class TaskFromServer implements Serializable{
 		this.user = user;
 	}
 
-	public String getFilePath() {
-		return filePath;
+	public String getFilename() {
+		return filename;
 	}
 
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
-	public Long getVersion() {
-		return version;
+	public String getFormat() {
+		return format;
 	}
 
-	public void setVersion(Long version) {
-		this.version = version;
+	public void setFormat(String format) {
+		this.format = format;
 	}
 
-	public Long getGeneralId() {
-		return generalId;
+	public String getDirPath() {
+		return dirPath;
 	}
 
-	public void setGeneralId(Long generalId) {
-		this.generalId = generalId;
+	public void setDirPath(String dirPath) {
+		this.dirPath = dirPath;
+	}
+
+	public User getUser() {
+		return user;
 	}
 }
