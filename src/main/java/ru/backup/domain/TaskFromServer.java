@@ -1,11 +1,16 @@
 package ru.backup.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import ru.backup.domain.user.User;
 
 
 /**
@@ -17,23 +22,24 @@ import javax.persistence.Id;
  *
  */
 @Entity
-public class TaskFromServer {
+public class TaskFromServer implements Serializable{
 	
 	@Id
 	@GeneratedValue
 	private Long id;
 
-	@Column
-	private String username;
+	@ManyToOne
+	@JoinColumn
+	User user;
 	
 	@Column
 	private String filePath;
 	
 	@Column
-	private String version;
+	private Long version;
 	
 	@Column
-	private String generalId;
+	private Long generalId;
 
 
 	public String getFilePaths() {
@@ -52,12 +58,12 @@ public class TaskFromServer {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public User getUse() {
+		return user;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getFilePath() {
@@ -68,19 +74,19 @@ public class TaskFromServer {
 		this.filePath = filePath;
 	}
 
-	public String getVersion() {
+	public Long getVersion() {
 		return version;
 	}
 
-	public void setVersion(String version) {
+	public void setVersion(Long version) {
 		this.version = version;
 	}
 
-	public String getGeneralId() {
+	public Long getGeneralId() {
 		return generalId;
 	}
 
-	public void setGeneralId(String generalId) {
+	public void setGeneralId(Long generalId) {
 		this.generalId = generalId;
 	}
 }

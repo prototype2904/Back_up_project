@@ -18,7 +18,7 @@ public interface UserService {
 	 * @param username 
 	 * @return
 	 */
-	Optional<User> findUserByUsername(String username);
+	User findUserByUsername(String username);
 	
 	/**
 	 * находит всех пользователей в базе данных
