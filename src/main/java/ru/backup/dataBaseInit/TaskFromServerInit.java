@@ -2,16 +2,12 @@ package ru.backup.dataBaseInit;
 
 import javax.annotation.PostConstruct;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import ru.backup.domain.TaskFromServer;
-import ru.backup.domain.TaskFromServerRepository;
-import ru.backup.service.user.TaskFromServerService;
-import ru.backup.service.user.TaskFromServerServiceImpl;
+import ru.backup.service.TaskFromServerService;
 import ru.backup.service.user.UserService;
 
 
@@ -38,9 +34,9 @@ public class TaskFromServerInit {
 	@PostConstruct
 	private void init()
 	{
-		createTaskFromServer("roma", "C:/Users/Roman/Documents/" , "Crypt_lab2", "docx");
-		createTaskFromServer("roma", "C:/Users/Roman/Documents/" , "Crypt_lab3", "docx");
-		createTaskFromServer("roma", "C:/Users/Roman/Documents/" , "Crypt_lab4", "docx");
+		createTaskFromServer("roma", "C:/Users/Roman/Downloads/" , "1.11", "jpg");
+		createTaskFromServer("roma", "C:/Users/Roman/Downloads/" , "Tede3uaDEgw", "jpg");
+		createTaskFromServer("roma", "C:/Users/Roman/Downloads/" , "ucEG3Owp5pc", "jpg");
 		
 	}
 	

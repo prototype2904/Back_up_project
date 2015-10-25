@@ -61,10 +61,6 @@ public class TaskFromServer implements Serializable{
 		this.id = id;
 	}
 
-	public User getUse() {
-		return user;
-	}
-
 	public void setUser(User user) {
 		this.user = user;
 	}

@@ -1,7 +1,6 @@
 multipart:
     max-file-size: 100Mb
     max-request-size: 100Mb
-
 spring:
     view:
       prefix: /WEB-INF/pages/

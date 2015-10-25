@@ -24,12 +24,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import ch.qos.logback.core.encoder.ByteArrayUtil;
 import ru.backup.domain.FileForm;
 import ru.backup.domain.TaskFromServer;
 import ru.backup.domain.user.CurrentUser;
 import ru.backup.service.FileFormService;
 
 /**
+ * 
+ * Рест контроллер для приема и отправки файлов
  * 
  * @author Chulanov Andrew
  *
@@ -38,27 +41,41 @@ import ru.backup.service.FileFormService;
 @RequestMapping("/rest/files/")
 public class FilesRestController {
 
+	/**
+	 * сервис для работы с файлами
+	 */
 	@Autowired
 	private FileFormService fileFormService;
 
+	/**
+	 * 
+	 * Загрузка файла на сервер
+	 * 
+	 * @param file
+	 *            - принимаемый файл, массив по 4 бита
+	 * @param filename
+	 *            - имя файла
+	 * @param format
+	 *            - формат
+	 * @param checksum
+	 *            - хэш файла MD5
+	 * @return
+	 */
 	@RequestMapping(value = "upload/", method = RequestMethod.POST)
 	public String uploadFile(@RequestParam("file") byte[] file, @RequestParam("filename") String filename,
-			@RequestParam("format") String format) {
+			@RequestParam("format") String format, @RequestParam("checksum") String checksum) {
 
-		if (filename == null) {
-			return "filename is null";
-		}
-		if (format == null) {
-			return "format is null";
-		}
-		if (file == null) {
-			return "file is null";
-		}
 		try {
-			fileFormService.save(new FileForm(filename, format), file);
-			return "good file";
+			String hash = fileFormService.getChecksum(file);
+			if (checksum.equals(hash)) {
+				fileFormService.save(new FileForm(filename, format, checksum), file);
+				return filename + "." + format + " was saved";
+			} else {
+				return "File came with errors";
+			}
+
 		} catch (IOException e) {
-			return "плохой файл\n" + e.getMessage();
+			return null;
 		}
 	}
 }

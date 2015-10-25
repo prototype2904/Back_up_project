@@ -38,12 +38,16 @@ public class FileForm implements Serializable {
 	@Column
 	private Long version;
 	
+	@Column
+	private String checksum;
+	
 	public FileForm() {
 	}
 
-	public FileForm(String filename, String format) {
+	public FileForm(String filename, String format, String checksum) {
 		this.filename = filename;
 		this.format = format;
+		this.checksum = checksum;
 	}
 
 	public FileForm(String filename, String format, User user, Long version) {
@@ -92,5 +96,13 @@ public class FileForm implements Serializable {
 
 	public void setVersion(Long version) {
 		this.version = version;
+	}
+
+	public String getChecksum() {
+		return checksum;
+	}
+
+	public void setChecksum(String checksum) {
+		this.checksum = checksum;
 	}
 }

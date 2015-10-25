@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import ru.backup.domain.TaskForClient;
 import ru.backup.domain.TaskFromServer;
 import ru.backup.domain.user.CurrentUser;
-import ru.backup.service.user.TaskFromServerService;
+import ru.backup.service.TaskFromServerService;
 
 /**
  * 
@@ -38,7 +39,7 @@ public class TasksRestController {
 	 * @return
 	 */
 	@RequestMapping(value = "all/", method = RequestMethod.GET)
-	public List<TaskFromServer> getAll()
+	public List<TaskForClient> getAll()
 	{
 		return taskFromServerService.findAll();
 	}
