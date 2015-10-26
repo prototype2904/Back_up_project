@@ -52,6 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         	.hasAuthority(Role.ADMIN.getName())
         	.antMatchers("/rest/files/upload/")
         	.hasAuthority(Role.USER.getName())
+        	.antMatchers("/admin/")
+        	.hasAuthority(Role.ADMIN.getName())
         		.and()
         		.httpBasic().and()
             .formLogin()
