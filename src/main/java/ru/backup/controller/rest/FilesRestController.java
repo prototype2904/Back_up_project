@@ -78,4 +78,11 @@ public class FilesRestController {
 			return null;
 		}
 	}
+	
+	@RequestMapping(value = "download/", method = RequestMethod.GET)
+	public byte[] downloadFile(@RequestParam("filename") String filename,
+			@RequestParam("format") String format, @RequestParam("version") String version){
+		
+		return null;
+	}
 }

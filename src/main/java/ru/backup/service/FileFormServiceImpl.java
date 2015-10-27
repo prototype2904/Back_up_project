@@ -185,4 +185,11 @@ public class FileFormServiceImpl implements FileFormService {
 		}
 		return null;
 	}
+
+	@Override
+	public byte[] downloadFile(FileForm fileForm) {
+		
+		
+		return null;
+	}
 }
