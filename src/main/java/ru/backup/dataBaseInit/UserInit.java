@@ -29,6 +29,7 @@ public class UserInit {
     private void init() {
     	createUser("roma", "1234", Role.USER);
     	createUser("admin", "1234", Role.ADMIN);
+    	createUser("julia", "1234", Role.USER);
     }
     
     private void createUser(String username, String password, Role role)

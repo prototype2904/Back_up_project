@@ -84,4 +84,10 @@ public class TaskFromServerServiceImpl implements TaskFromServerService {
 		return taskForClient;
 	}
 
+	@Override
+	public List<TaskForClient> findAllTasksForUserByFileForm(FileForm form) {
+		List<TaskFromServer> list = taskFromServerRepository.findAllByUserAndFilenameAndFormat(form.getUser(), form.getFilename(), form.getFormat());
+		return list.stream().map(object -> objectToForm(object)).collect(Collectors.toList());
+	}
+
 }

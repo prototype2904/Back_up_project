@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import ru.backup.domain.user.Role;
 import ru.backup.domain.user.User;
 import ru.backup.domain.user.UserRepository;
 
@@ -37,6 +38,16 @@ public class UserServiceImpl implements UserService {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = findUserByUsername(auth.getName());
 		return user;
+	}
+
+	@Override
+	public List<User> findAllByRoleUser() {
+		return userRepository.findAllByRole(Role.USER);
+	}
+
+	@Override
+	public User findOneById(Long id) {
+		return userRepository.findOne(id);
 	}
 
 }

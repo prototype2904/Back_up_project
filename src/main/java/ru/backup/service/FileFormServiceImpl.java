@@ -67,11 +67,13 @@ public class FileFormServiceImpl implements FileFormService {
 
 	@Override
 	public void deleteOneById(Long id) {
+		deleteFileFromServer(findOne(id));
 		fileFormRepository.delete(id);
 	}
 
 	@Override
 	public void deleteAllByFileForm(FileForm fileForm) {
+		deleteAllFilesFromServer(fileForm);
 		fileFormRepository.deleteAllByFilenameAndFormatAndUser(fileForm.getFilename(), fileForm.getFormat(),
 				fileForm.getUser());
 

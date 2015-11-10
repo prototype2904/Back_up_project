@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         	.hasAuthority(Role.ADMIN.getName())
         	.antMatchers("/rest/files/upload/")
         	.hasAuthority(Role.USER.getName())
-        	.antMatchers("/admin/")
+        	.antMatchers("/admin/*")
         	.hasAuthority(Role.ADMIN.getName())
         		.and()
         		.httpBasic().and()
@@ -68,7 +68,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .logoutSuccessUrl("/")
             	.permitAll()
             	.and()
-            	.csrf().disable();
+        	.exceptionHandling().accessDeniedPage("/403")
+            	.and()
+            .csrf().disable()
+            	;
     }
 
 }

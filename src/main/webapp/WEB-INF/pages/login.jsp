@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
 <html>
 <head>
-<title>Login Page</title>
+<title> Страница авторизации</title>
 <style>
 .error {
 	padding: 15px;
@@ -38,11 +39,11 @@
 </head>
 <body onload='document.loginForm.username.focus();'>
 
-	<h1>Spring Security Login Form (Database Authentication)</h1>
+	<h1>Страница авторизации</h1>
 
 	<div id="login-box">
 
-		<h2>Login with Username and Password</h2>
+		<h2>Введите свой логин и пароль</h2>
 
 		<c:if test="${not empty error}">
 			<div class="error">${error}</div>
@@ -60,16 +61,16 @@
 
 			<table>
 				<tr>
-					<td>User:</td>
+					<td>Логин:</td>
 					<td><input id="username" type='text' name='username'></td>
 				</tr>
 				<tr>
-					<td>Password:</td>
+					<td>Пароль:</td>
 					<td><input id="password" type='password' name='password' /></td>
 				</tr>
 				<tr>
 					<td colspan='2'><input name="submit" type="submit"
-						value="submit" /></td>
+						value="Подтвердить" /></td>
 				</tr>
 			</table>
 

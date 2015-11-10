@@ -38,4 +38,12 @@ public interface UserService {
 	 * @return
 	 */
 	User getCurrentUser();
+	
+	/**
+	 * Получить всех пользователей с ролью USER
+	 * @return
+	 */
+	List<User> findAllByRoleUser();
+	
+	User findOneById(Long id);
 }
