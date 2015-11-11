@@ -15,6 +15,8 @@ import org.apache.tomcat.util.bcel.classfile.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -79,10 +81,14 @@ public class FilesRestController {
 		}
 	}
 	
-	@RequestMapping(value = "download/", method = RequestMethod.GET)
-	public byte[] downloadFile(@RequestParam("filename") String filename,
+	@RequestMapping(value = "download/", method = RequestMethod.POST)
+	public ResponseEntity<?> downloadFile(@RequestParam("filename") String filename,
 			@RequestParam("format") String format, @RequestParam("version") String version){
-		
-		return null;
+		try {
+			byte[] downloadFile = fileFormService.downloadFile(new FileForm(filename, format, null, Long.parseLong(version)));
+			return new ResponseEntity<byte[]>(downloadFile, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
+		}
 	}
 }

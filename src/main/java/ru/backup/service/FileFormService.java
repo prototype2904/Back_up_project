@@ -82,7 +82,8 @@ public interface FileFormService {
 	 * 
 	 * @param fileForm - описание файла
 	 * @return - вернуть массив файла по 4 бита
+	 * @throws Exception 
 	 */
-	byte[] downloadFile(FileForm fileForm);
+	byte[] downloadFile(FileForm fileForm) throws Exception;
 
 }

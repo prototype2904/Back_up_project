@@ -1,7 +1,10 @@
 package ru.backup.service;
 
 import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -189,9 +192,48 @@ public class FileFormServiceImpl implements FileFormService {
 	}
 
 	@Override
-	public byte[] downloadFile(FileForm fileForm) {
+	public byte[] downloadFile(FileForm fileForm) throws Exception {
 		
+		//получить текущего пользователя
+		User user = userService.getCurrentUser();
 		
-		return null;
+		//посмотреть в БД, есть ли такой файл
+		FileForm form = fileFormRepository.findOneByUserAndFilenameAndFormatAndVersion(user, fileForm.getFilename(), fileForm.getFormat(), fileForm.getVersion());
+		
+		//есть, тогда пробуем получить массив по 4 бита
+		if(form != null){
+			File file = new File(String.format("%s/%s_%s_%d.%s", ApplicationUrl.FilesUrl.getUrl(),
+					form.getUser().getUsername(), form.getFilename(), form.getVersion(), form.getFormat()));
+			byte[] arrayByte = convertFileToHex(file);
+			return arrayByte;
+		}
+		//сообщаем, что такого файла нет
+		else {
+			throw new Exception("0");
+		}
+		
+	}
+	
+	/**
+	 * Перевод файла в массив по 4 бита
+	 * 
+	 * @param file
+	 *            - файл
+	 * @return массив по 4 бита
+	 * @throws Exception 
+	 */
+	private byte[] convertFileToHex(File file) throws Exception {
+		try (InputStream inputStream = new FileInputStream(file)) {
+			byte[] hex = new byte[inputStream.available() * 2];
+			int i = 0;
+			while (inputStream.available() > 0) {
+				int tmp = inputStream.read();
+				hex[i++] = (byte) ((tmp >> 4) & 0x0f);
+				hex[i++] = (byte) (tmp & 0x0f);
+			}
+			return hex;
+		} catch (Exception e) {
+			throw new Exception("1");
+		}
 	}
 }
