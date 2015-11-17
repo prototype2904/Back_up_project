@@ -16,16 +16,16 @@ import ru.backup.domain.TaskFromServer;
  *
  */
 @org.springframework.web.bind.annotation.RestController
-@RequestMapping("/rest/backup/")
+@RequestMapping("/rest/")
 public class RestController {
 
 	/**
 	 * пример метода GET возвращает объект
 	 * @return
 	 */
-	@RequestMapping(value = "get/", method = RequestMethod.GET)
-	public TaskFromServer get() {
-		return new TaskFromServer();
+	@RequestMapping(value = "auth/", method = RequestMethod.GET)
+	public boolean get() {
+		return true;
 	}
 
 	/**
