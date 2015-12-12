@@ -9,6 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Value;
 
 import ru.backup.domain.user.User;
 
@@ -33,24 +37,28 @@ public class TaskFromServer implements Serializable{
 	 */
 	@ManyToOne
 	@JoinColumn
+	@NotNull(message="Пользователь должен быть указан")
 	User user;
 	
 	/**
 	 * Имя файла для отправки
 	 */
 	@Column
+	@NotEmpty(message="Имя файла должно быть указано")
 	private String filename;
 	
 	/**
 	 * формат файла для отправки
 	 */
 	@Column
+	@NotEmpty(message="Название формата должно быть указано")
 	private String format;
 	
 	/**
 	 * директория, в которой располагается файл
 	 */
 	@Column
+	@NotEmpty(message="Директория файла должна быть указана")
 	private String dirPath;
 	
 	public Long getId() {

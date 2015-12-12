@@ -76,4 +76,13 @@ public interface FileFormService {
 	 */
 	String getChecksum(byte[] file);
 
+	
+	/**
+	 * Скачать файл зная его описание
+	 * 
+	 * @param fileForm - описание файла
+	 * @return - вернуть массив файла по 4 бита
+	 */
+	byte[] downloadFile(FileForm fileForm);
+
 }

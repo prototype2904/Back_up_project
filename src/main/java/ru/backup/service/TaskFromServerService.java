@@ -2,6 +2,7 @@ package ru.backup.service;
 
 import java.util.List;
 
+import ru.backup.domain.FileForm;
 import ru.backup.domain.TaskForClient;
 import ru.backup.domain.TaskFromServer;
 import ru.backup.domain.user.User;
@@ -28,6 +29,8 @@ public interface TaskFromServerService {
 	List<TaskFromServer> findAllByUser(User user);
 	
 	List<TaskForClient> findAllTasksForUser(User user);
+	
+	List<TaskForClient> findAllTasksForUserByFileForm(FileForm form);
 	
 	TaskForClient objectToForm(TaskFromServer taskFromServer);
 	

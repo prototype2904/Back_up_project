@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import ru.backup.domain.FileForm;
@@ -83,6 +82,12 @@ public class TaskFromServerServiceImpl implements TaskFromServerService {
 		List<String> fileChecksums = forms.stream().map(object -> object.getChecksum()).collect(Collectors.toList());
 		taskForClient.setFileChecksums(fileChecksums);
 		return taskForClient;
+	}
+
+	@Override
+	public List<TaskForClient> findAllTasksForUserByFileForm(FileForm form) {
+		List<TaskFromServer> list = taskFromServerRepository.findAllByUserAndFilenameAndFormat(form.getUser(), form.getFilename(), form.getFormat());
+		return list.stream().map(object -> objectToForm(object)).collect(Collectors.toList());
 	}
 
 }

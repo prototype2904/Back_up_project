@@ -37,4 +37,14 @@ public interface TaskFromServerRepository extends JpaRepository<TaskFromServer, 
 	 */
 	TaskFromServer findOneById(Long id);
 	
+	/**
+	 * Получить список всех задач пользователя с таким названием и форматом
+	 * 
+	 * @param user
+	 * @param filename
+	 * @param format
+	 * @return
+	 */
+	List<TaskFromServer> findAllByUserAndFilenameAndFormat(User user, String filename, String format);
+	
 }
