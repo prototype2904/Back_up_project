@@ -9,7 +9,7 @@ package ru.backup.domain;
  */
 public enum ApplicationUrl {
 
-	FilesUrl(".");
+	FilesUrl("./");
 
 	private String url;
 

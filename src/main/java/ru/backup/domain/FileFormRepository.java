@@ -25,4 +25,6 @@ public interface FileFormRepository extends JpaRepository<FileForm, Long>{
 	
 	List<FileForm> findAllByUser(User user);
 	
+	FileForm findOneByUserAndFilenameAndFormatAndVersion(User user, String filename, String format, Long version);
+	
 }
